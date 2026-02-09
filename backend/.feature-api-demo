@@ -1,0 +1,13 @@
+# Backend API Demo Feature
+
+This commit adds the /api/demo endpoint with:
+- CORS middleware configuration
+- Request logging to backend/logs/access.log
+- Error handling with try-catch blocks
+- Health check endpoint
+- Structured API responses
+
+See backend/server.js for implementation details.
+Files included:
+- backend/server.js (main API server)
+- backend/logs/ (log directory for persistence)
