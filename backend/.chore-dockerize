@@ -1,0 +1,19 @@
+# Backend Dockerization Chore
+
+This commit adds Docker containerization for the Express backend:
+- Created backend/Dockerfile with multi-stage build
+  - Builder stage: Full dependencies for build
+  - Production stage: Only runtime dependencies (optimized)
+- Added backend/.dockerignore for build context optimization
+- Configured health check: /api/demo endpoint every 30s
+- Exposed port 3000 for API access
+
+Features:
+- Base image: node:20-alpine (lightweight)
+- Multi-stage build reduces final image size
+- Health checks for container orchestration
+- Volume mount ready at /app/logs for logging persistence
+
+Files created:
+- backend/Dockerfile (containerization config)
+- backend/.dockerignore (build optimization)
