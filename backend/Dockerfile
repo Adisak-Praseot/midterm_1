@@ -1,41 +1,43 @@
 # Stage 1: Build
 FROM node:20-alpine AS builder
+
 WORKDIR /app
+
+# Copy package files
 COPY package*.json ./
-# Install ALL dependencies (including devDependencies for building)
+
+# Install all dependencies (including devDependencies if needed)
 RUN npm ci
+
+# Copy application code
 COPY . .
-# Generate Prisma Client
-RUN DATABASE_URL="postgresql://dummy:5432/mydb" npx prisma generate
-# Build TypeScript
-RUN npm run build
 
 # Stage 2: Production
 FROM node:20-alpine
+
 WORKDIR /app
 
+# Set Node environment to production
 ENV NODE_ENV=production
 
-# Create logs directory
-RUN mkdir -p /app/logs && chown -R node:node /app
+# Create logs directory for volume mount
+RUN mkdir -p logs
 
-USER node
-
+# Copy package files from builder
 COPY package*.json ./
+
 # Install only production dependencies
 RUN npm ci --only=production
 
-# Copy built application from builder stage
-COPY --from=builder --chown=node:node /app/dist ./dist
-# Copy prisma schema if needed for runtime reference
-COPY --from=builder --chown=node:node /app/prisma ./prisma
-# Copy generated Prisma Client
-COPY --from=builder --chown=node:node /app/node_modules/.prisma ./node_modules/.prisma
+# Copy application code from builder stage
+COPY --from=builder /app /app
 
-# Healthcheck
+# Healthcheck - Verify service is responding
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
   CMD wget --quiet --tries=1 --spider http://localhost:3000/api/demo || exit 1
 
+# Expose port
 EXPOSE 3000
 
-CMD ["node", "dist/server.js"]
+# Start application
+CMD ["node", "server.js"]
