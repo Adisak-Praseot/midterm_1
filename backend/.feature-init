@@ -1,0 +1,8 @@
+# Backend Initialization Feature
+
+This commit initializes the Express backend with core dependencies:
+- express: ^4.18.2
+- cors: ^2.8.5
+- dotenv: ^16.0.3
+
+See backend/package.json for complete dependencies.
