@@ -1,0 +1,21 @@
+# Frontend Axios Integration Feature
+
+This commit integrates the Quasar frontend with backend API using Axios:
+- Installed axios HTTP client
+- Created frontend/src/boot/axios.js configuration
+- Updated frontend/src/pages/IndexPage.vue with API calls
+- Added error handling and loading states
+- Configured frontend/.env with API URL
+
+Features included:
+- Git Workflow section with 5 steps
+- Docker Concepts section with 5 key concepts
+- API Data section showing live backend data
+- Error handling and retry logic
+- Loading skeletons for better UX
+
+Files modified:
+- frontend/package.json (axios installed)
+- frontend/src/boot/axios.js (HTTP client setup)
+- frontend/src/pages/IndexPage.vue (API integration)
+- frontend/.env (configuration)
