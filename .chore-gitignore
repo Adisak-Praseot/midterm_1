@@ -1,0 +1,15 @@
+# Gitignore Update Chore
+
+This commit updates .gitignore for full-stack project development:
+- Ignore backend/logs/ (development logs, not source control)
+- Ignore .env files (secrets and credentials)
+- Ignore node_modules/ (dependencies, can be reinstalled)
+- Ignore IDE settings (.vscode/, .idea/)
+- Ignore build outputs (dist/, build/)
+- Ignore OS-specific files (.DS_Store, Thumbs.db)
+
+This ensures no secrets, dependencies, or temporary files 
+are accidentally committed to version control.
+
+Updated files:
+- .gitignore (comprehensive rules at root)
