@@ -1,0 +1,26 @@
+# Docker Compose Full-Stack Chore
+
+This commit sets up Docker Compose orchestration for the full-stack application:
+- Created docker-compose.yml at project root (version 3.9)
+- Configured frontend service:
+  - Builds from frontend/Dockerfile
+  - Exposes port 8080:80
+  - Sets VITE_API_URL=http://backend:3000 for internal communication
+  - Joins app-network for service discovery
+  - Restart policy: unless-stopped
+  
+- Configured backend service:
+  - Builds from backend/Dockerfile  
+  - Exposes port 3000:3000
+  - Volume mount: ./backend/logs:/app/logs for persistence
+  - Joins app-network for service discovery
+  - Health checks enabled (verifies /api/demo)
+  - Restart policy: unless-stopped
+
+- Custom bridge network: app-network
+  - Enables service-to-service communication
+  - Frontend can call backend at http://backend:3000
+  - Isolated from host network for security
+
+Files created:
+- docker-compose.yml (at root, orchestration config)
